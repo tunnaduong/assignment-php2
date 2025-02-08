@@ -16,12 +16,12 @@
         <!-- Main Content -->
         <div class="container-fluid p-4">
             <h2>Welcome to Admin Dashboard</h2>
-            <div class="row">
+            <div class="row mt-4">
                 <div class="col-md-4">
                     <div class="card text-white bg-primary mb-3">
                         <div class="card-header">Users</div>
                         <div class="card-body">
-                            <h5 class="card-title">{{ $users }}</h5>
+                            <h1 class="card-title">{{ $users }}</h1>
                         </div>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                     <div class="card text-white bg-success mb-3">
                         <div class="card-header">Quizzes</div>
                         <div class="card-body">
-                            <h5 class="card-title">{{ $quizzes }}</h5>
+                            <h1 class="card-title">{{ $quizzes }}</h1>
                         </div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                     <div class="card text-white bg-danger mb-3">
                         <div class="card-header">Attempts</div>
                         <div class="card-body">
-                            <h5 class="card-title">{{ $attempts }}</h5>
+                            <h1 class="card-title">{{ $attempts }}</h1>
                         </div>
                     </div>
                 </div>

@@ -15,7 +15,7 @@ class HomeController extends BaseController
 
         if ($_SESSION['user']->role == 'admin') {
             $user = new User();
-            $users = $user->getAllUsers();
+            $users = $user->getNumberOfUsers();
             $quiz = new Quiz();
             $quizzes = $quiz->getNumberOfQuizzes();
             $attempts = $quiz->getNumberOfAttempts();

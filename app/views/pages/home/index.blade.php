@@ -54,7 +54,7 @@
         <h2 class="text-center">Available Quizzes</h2>
         <div class="row mt-4">
             @foreach ($quizzes as $quiz)
-                <div class="col-md-4">
+                <div class="col-md-4 mb-4">
                     <div class="card quiz-card">
                         <div class="card-body">
                             <h5 class="card-title">{{ $quiz->title }}</h5>

@@ -15,34 +15,35 @@
 
         <!-- Main Content -->
         <div class="container-fluid p-4">
-            <h2>Manage Quizzes</h2>
+            <h2>Manage Users</h2>
 
-            <!-- Button to add new quiz -->
-            <a href="{{ route('manage/quizzes/create') }}" class="btn btn-success mb-3">Add New Quiz</a>
+            <!-- Add User Button -->
+            <a href="/manage/users/create" class="btn btn-success mb-3">Add New User</a>
 
-            <!-- Table displaying quizzes -->
+            <!-- Users Table -->
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Quiz Name</th>
-                        <th scope="col">Number of Questions</th>
-                        <th scope="col">Actions</th>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($quizzes as $quiz)
+                    @foreach ($users as $user)
                         <tr>
-                            <td>{{ $quiz->id }}</td>
-                            <td>{{ $quiz->title }}</td>
-                            <td>{{ $quiz->total_questions }}</td>
+                            <td>{{ $user->id }}</td>
+                            <td>{{ $user->full_name }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td>{{ $user->role }}</td>
                             <td>
-                                <a href="{{ route('manage/quizzes/edit/' . $quiz->id) }}"
-                                    class="btn btn-primary btn-sm">Edit</a>
-                                <form action="{{ route('manage/quizzes/delete/' . $quiz->id) }}" method="POST"
+                                <a href="/manage/users/edit/{{ $user->id }}" class="btn btn-primary btn-sm">Edit</a>
+                                <form action="{{ route('manage/users/delete/' . $user->id) }}" method="POST"
                                     style="display: inline;">
                                     <button type="submit" class="btn btn-danger btn-sm"
-                                        onclick="return confirm('Are you sure you want to delete this quiz?')">Delete</button>
+                                        onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
                                 </form>
                             </td>
                         </tr>

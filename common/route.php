@@ -22,7 +22,23 @@ try {
     $router->get('/reset-password', [App\Controllers\AuthController::class, 'showResetPassword']);
     $router->post('/reset-password', [App\Controllers\AuthController::class, 'resetPassword']);
 
+    $router->get('/manage/users', [App\Controllers\AdminController::class, 'manageUsers']);
+
+    $router->any('/manage/users/create', [App\Controllers\AdminController::class, 'createUser']);
+
+    $router->post('/manage/users/delete/{userId}', [App\Controllers\AdminController::class, 'deleteUser']);
+
+    $router->any('/manage/users/edit/{userId}', [App\Controllers\AdminController::class, 'editUser']);
+
     $router->get('/manage/quizzes', [App\Controllers\AdminController::class, 'manageQuiz']);
+
+    $router->get('/manage/quizzes/create', [App\Controllers\AdminController::class, 'create']);
+
+    $router->post('/manage/quizzes/create', [App\Controllers\AdminController::class, 'createQuiz']);
+
+    $router->post('/manage/quizzes/delete/{quizId}', [App\Controllers\AdminController::class, 'deleteQuiz']);
+
+    $router->any('/manage/quizzes/edit/{quizId}', [App\Controllers\AdminController::class, 'editQuiz']);
 
     // khu vực cần quan tâm -----------
     //$router->get('test', [App\Controllers\ProductController::class, 'index']);

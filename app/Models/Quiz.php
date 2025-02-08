@@ -134,4 +134,16 @@ class Quiz extends BaseModel
         $this->setQuery("SELECT COUNT(*) as count FROM user_attempts");
         return $this->loadRow()->count;
     }
+
+    public function createQuiz($data)
+    {
+        $this->setQuery("INSERT INTO quizzes (title, description) VALUES (?, ?)");
+        return $this->execute([$data['title'], $data['description']]);
+    }
+
+    public function deleteQuiz($quizId)
+    {
+        $this->setQuery("DELETE FROM quizzes WHERE id = ?");
+        return $this->execute([$quizId]);
+    }
 }
