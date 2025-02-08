@@ -4,7 +4,7 @@ const DBCHARSET = "utf8";
 const DBUSER = "root";
 const DBPASS = "";
 const  DBHOST = "localhost";
-const BASE_URL = "https://php2_asm.net/";
+const BASE_URL = "https://assignment-php2.net/";
 function route($url)
 {
     return BASE_URL . $url;

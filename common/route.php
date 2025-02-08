@@ -17,7 +17,8 @@ try {
 
     $router->any('/quiz/{quizId}/{questionIndex}', [App\Controllers\HomeController::class, 'quiz']);
 
-
+    $router->get('/reset-password', [App\Controllers\AuthController::class, 'showResetPassword']);
+    $router->post('/reset-password', [App\Controllers\AuthController::class, 'resetPassword']);
 
     // khu vực cần quan tâm -----------
     //$router->get('test', [App\Controllers\ProductController::class, 'index']);
