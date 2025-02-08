@@ -40,7 +40,12 @@ class AdminController extends BaseController
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $quiz = new Quiz();
-            // $quiz->updateQuiz($quizId, $_POST);
+            $quiz->updateQuiz($quizId, [
+                'questions' => $_POST['questions'] ?? [],
+                'question_text' => $_POST['question_text'],
+                'answers' => $_POST['answers'],
+                'correct_answer' => $_POST['correct_answer']
+            ]);
             header('Location: /manage/quizzes');
         }
 

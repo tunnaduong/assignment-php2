@@ -17,7 +17,7 @@
             <h2>Edit quiz: {{ $quiz->title }}</h2>
 
             <!-- Form to Add Question -->
-            <form action="/manage/questions/store" method="POST">
+            <form action="" method="POST">
                 <input type="hidden" name="quiz_id" value="{{ $quiz->id }}">
 
                 @foreach ($quiz->questions as $index => $question)
@@ -35,7 +35,8 @@
                                     <input type="text" class="form-control me-2" name="answers[{{ $index }}][]"
                                         value="{{ $answer->answer_text }}">
                                     <input type="radio" name="correct_answer[{{ $index }}]"
-                                        value="{{ $answerIndex }}" {{ $answer->is_correct ? 'checked' : '' }}> Correct
+                                        value="{{ $answerIndex }}" {{ $answer->is_correct ? 'checked' : '' }}>
+                                    &nbsp;Correct
                                 </div>
                             @endforeach
                         </div>
@@ -44,23 +45,25 @@
 
                 <div class="mb-3">
                     <h4 for="question_text" class="form-label">Question {{ count($quiz->questions) + 1 }}</h4>
-                    <input type="text" class="form-control" id="question_text" name="question_text" required>
+                    <input type="text" class="form-control" id="question_text" name="question_text"
+                        {{ count($quiz->questions) == 0 ? 'required' : '' }}>
                 </div>
 
                 <h4>Answers</h4>
                 <div id="answers-container">
                     <div class="mb-3 d-flex align-items-center">
-                        <input type="text" class="form-control me-2" name="answers[]" placeholder="Answer 1" required>
-                        <input type="radio" name="correct_answer[]" value="0"> Correct
+                        <input type="text" class="form-control me-2" name="answers[]" placeholder="Answer 1"
+                            {{ count($quiz->questions) == 0 ? 'required' : '' }}>
+                        <input type="radio" name="correct_answer[]" value="0"> &nbsp;Correct
                     </div>
                 </div>
 
-                <button type="button" class="btn btn-primary" onclick="addAnswer()">Add Another Answer</button>
+                <button type="button" class="btn btn-primary mb-3" onclick="addAnswer()">Add Another Answer</button>
 
-                <button type="button" class="btn btn-primary" onclick="addQuestion()">Add Another Question</button>
+                <button type="button" class="btn btn-primary mb-3" onclick="addQuestion()">Add Another Question</button>
 
-                <button type="submit" class="btn btn-success">Save Question</button>
-                <a href="/manage/quizzes" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-success mb-3">Save Question</button>
+                <a href="/manage/quizzes" class="btn btn-secondary mb-3">Cancel</a>
             </form>
         </div>
     </div>
@@ -70,15 +73,17 @@
         let questionCount = {{ count($quiz->questions) + 1 }};
 
         function addAnswer() {
-            const container = document.getElementById('answers-container');
-            const index = answerCount++;
+            // Find the closest answers container to the clicked button
+            const button = event.target;
+            const container = button.previousElementSibling;
+            const answers = container.getElementsByClassName('mb-3').length;
 
             const answerDiv = document.createElement('div');
             answerDiv.classList.add('mb-3', 'd-flex', 'align-items-center');
 
             answerDiv.innerHTML = `
-                <input type="text" class="form-control me-2" name="answers[]" placeholder="Answer ${index + 1}" required>
-                <input type="radio" name="correct_answer[]" value="${index}"> Correct
+            <input type="text" class="form-control me-2" name="answers[]" placeholder="Answer ${answers + 1}" required>
+            <input type="radio" name="correct_answer[]" value="${answers}"> &nbsp;Correct
             `;
 
             container.appendChild(answerDiv);
@@ -87,7 +92,7 @@
         function addQuestion() {
             questionCount++;
             const container = document.querySelector('form');
-            const submitButton = container.querySelector('button[type="submit"]');
+            const submitButton = container.querySelector('button[onclick="addQuestion()"]');
 
             const questionDiv = document.createElement('div');
             questionDiv.innerHTML = `
@@ -100,7 +105,7 @@
                 <div class="answers-container">
                     <div class="mb-3 d-flex align-items-center">
                         <input type="text" class="form-control me-2" name="answers[]" placeholder="Answer 1" required>
-                        <input type="radio" name="correct_answer[]" value="0"> Correct
+                        <input type="radio" name="correct_answer[]" value="0"> &nbsp;Correct
                     </div>
                 </div>
 
