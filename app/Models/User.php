@@ -41,4 +41,10 @@ class User extends BaseModel
         $this->setQuery("UPDATE users SET password = ?, reset_token = NULL, reset_token_expiry = NULL WHERE email = ?");
         return $this->execute([$password, $email]);
     }
+
+    public function getAllUsers()
+    {
+        $this->setQuery("SELECT * FROM users");
+        return $this->loadRecord();
+    }
 }

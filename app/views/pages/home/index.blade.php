@@ -53,33 +53,21 @@
     <div class="container mt-5 flex-grow-1" id="quizzes">
         <h2 class="text-center">Available Quizzes</h2>
         <div class="row mt-4">
-            <div class="col-md-4">
-                <div class="card quiz-card">
-                    <div class="card-body">
-                        <h5 class="card-title">General Knowledge</h5>
-                        <p class="card-text">Test your general knowledge skills.</p>
-                        <a href="#" class="btn btn-primary">Start</a>
+            @foreach ($quizzes as $quiz)
+                <div class="col-md-4">
+                    <div class="card quiz-card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $quiz->title }}</h5>
+                            <p class="card-text">{{ $quiz->description }}</p>
+                            @if ($quiz->user_attempted)
+                                <a href="/quiz/{{ $quiz->id }}/0" class="btn btn-warning">Retake</a>
+                            @else
+                                <a href="/quiz/{{ $quiz->id }}/0" class="btn btn-primary">Start</a>
+                            @endif
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card quiz-card">
-                    <div class="card-body">
-                        <h5 class="card-title">Science Quiz</h5>
-                        <p class="card-text">Challenge yourself with science questions.</p>
-                        <a href="#" class="btn btn-primary">Start</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card quiz-card">
-                    <div class="card-body">
-                        <h5 class="card-title">History Quiz</h5>
-                        <p class="card-text">How well do you know history?</p>
-                        <a href="#" class="btn btn-primary">Start</a>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 

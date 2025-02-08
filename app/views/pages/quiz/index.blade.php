@@ -1,5 +1,9 @@
 @extends('layouts.default')
 
+@php
+    shuffle($answers);
+@endphp
+
 @section('content')
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
@@ -18,17 +22,23 @@
 
             <form action="{{ route('quiz/' . $quiz->id . '/' . ($questionIndex + 1)) }}" method="POST">
                 @csrf
+                <input type="hidden" name="question_id" value="{{ $question->id }}">
+                <input type="hidden" name="total_questions" value="{{ $totalQuestions }}">
                 @foreach ($answers as $answer)
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="selected_answer" value="{{ $answer->id }}"
-                            required id="answer_{{ $answer->id }}">
+                            required id="answer_{{ $answer->id }}" @if (isset($selectedAnswers[$question->id]) && $selectedAnswers[$question->id] == $answer->id) checked @endif>
                         <label class="form-check-label" for="answer_{{ $answer->id }}">{{ $answer->answer_text }}</label>
                     </div>
                 @endforeach
 
+                @foreach ($selectedAnswers as $qId => $aId)
+                    <input type="hidden" name="selected_answers[{{ $qId }}]" value="{{ $aId }}">
+                @endforeach
+
                 <div class="mt-3">
                     @if ($questionIndex > 0)
-                        <a href="{{ route('quiz/' . $quiz->id . '/' . ($questionIndex - 1)) }}"
+                        <a href="{{ route('quiz/' . $quiz->id . '/' . ($questionIndex - 1)) }}?{{ http_build_query(['selected_answers' => $selectedAnswers]) }}"
                             class="btn btn-secondary">Previous</a>
                     @endif
 

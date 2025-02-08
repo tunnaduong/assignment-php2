@@ -15,10 +15,14 @@ try {
 
     $router->get('/logout', [App\Controllers\AuthController::class, 'logout']);
 
-    $router->any('/quiz/{quizId}/{questionIndex}', [App\Controllers\HomeController::class, 'quiz']);
+    $router->any('/quiz/{quizId}/result', [App\Controllers\HomeController::class, 'showQuizResult']);
+
+    $router->any('/quiz/{quizId}/{questionIndex}', [App\Controllers\HomeController::class, 'storeQuizAnswer']);
 
     $router->get('/reset-password', [App\Controllers\AuthController::class, 'showResetPassword']);
     $router->post('/reset-password', [App\Controllers\AuthController::class, 'resetPassword']);
+
+    $router->get('/manage/quizzes', [App\Controllers\AdminController::class, 'manageQuiz']);
 
     // khu vực cần quan tâm -----------
     //$router->get('test', [App\Controllers\ProductController::class, 'index']);
