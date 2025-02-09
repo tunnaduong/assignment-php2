@@ -3,7 +3,7 @@
 @section('content')
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="/">QuizMaster</a>
+            <a class="navbar-brand" href="{{ route('') }}">QuizMaster</a>
         </div>
     </nav>
 
@@ -17,7 +17,7 @@
             <p><strong>Correct Answers:</strong> {{ $correctAnswers }}</p>
             <p><strong>Score:</strong> {{ $scorePercentage }}%</p>
 
-            <a href="/" class="btn btn-primary">Back to Home</a>
+            <a href="{{ route('') }}" class="btn btn-primary">Back to Home</a>
         </div>
     </div>
 @endsection

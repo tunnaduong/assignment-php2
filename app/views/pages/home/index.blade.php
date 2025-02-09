@@ -30,15 +30,15 @@
     </style>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="/">QuizMaster</a>
+            <a class="navbar-brand" href="{{ route('') }}">QuizMaster</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('') }}">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="#quizzes">Quizzes</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -60,9 +60,9 @@
                             <h5 class="card-title">{{ $quiz->title }}</h5>
                             <p class="card-text">{{ $quiz->description }}</p>
                             @if ($quiz->user_attempted)
-                                <a href="/quiz/{{ $quiz->id }}/start" class="btn btn-warning">Retake</a>
+                                <a href="{{ route("quiz/$quiz->id/start") }}" class="btn btn-warning">Retake</a>
                             @else
-                                <a href="/quiz/{{ $quiz->id }}/start" class="btn btn-primary">Start</a>
+                                <a href="{{ route("quiz/$quiz->id/start") }}" class="btn btn-primary">Start</a>
                             @endif
                         </div>
                     </div>

@@ -46,11 +46,13 @@
                         <input type="hidden" name="login" value="1">
                         <div class="mb-3">
                             <label class="form-label">Email</label>
-                            <input type="email" name="email" class="form-control" required>
+                            <input value="{{ $_POST['email'] }}" type="email" name="email" class="form-control"
+                                required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Password</label>
-                            <input type="password" name="password" class="form-control" required>
+                            <input value="{{ $_POST['password'] }}" type="password" name="password" class="form-control"
+                                required>
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Login</button>
                     </form>

@@ -7,7 +7,7 @@
 @section('content')
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="/">QuizMaster</a>
+            <a class="navbar-brand" href="{{ route('') }}">QuizMaster</a>
         </div>
     </nav>
 
@@ -32,7 +32,8 @@
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="selected_answer" value="{{ $answer->id }}"
                             id="answer_{{ $answer->id }}" @if (isset($selectedAnswers[$question->id]) && $selectedAnswers[$question->id] == $answer->id) checked @endif>
-                        <label class="form-check-label" for="answer_{{ $answer->id }}">{{ $answer->answer_text }}</label>
+                        <label class="form-check-label"
+                            for="answer_{{ $answer->id }}">{{ $answer->answer_text }}</label>
                     </div>
                 @endforeach
 

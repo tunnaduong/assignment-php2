@@ -5,10 +5,10 @@
         <div class="bg-dark text-white p-3 vh-100" style="width: 250px;">
             <h4>Admin Panel</h4>
             <ul class="nav flex-column">
-                <li class="nav-item"><a href="/" class="nav-link text-white">Dashboard</a></li>
-                <li class="nav-item"><a href="/manage/users" class="nav-link text-white">Users</a></li>
-                <li class="nav-item"><a href="/manage/quizzes" class="nav-link text-white">Quizzes</a></li>
-                <li class="nav-item"><a href="/logout" class="nav-link text-white">Logout</a></li>
+                <li class="nav-item"><a href="{{ route('') }}" class="nav-link text-white">Dashboard</a></li>
+                <li class="nav-item"><a href="{{ route('manage/users') }}" class="nav-link text-white">Users</a></li>
+                <li class="nav-item"><a href="{{ route('manage/quizzes') }}" class="nav-link text-white">Quizzes</a></li>
+                <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link text-white">Logout</a></li>
             </ul>
         </div>
 
@@ -31,7 +31,7 @@
                         required>
                 </div>
                 <button type="submit" class="btn btn-success">Create Quiz</button>
-                <a href="/manage/quizzes" class="btn btn-secondary">Cancel</a>
+                <a href="{{ route('manage/quizzes') }}" class="btn btn-secondary">Cancel</a>
             </form>
         </div>
     </div>
