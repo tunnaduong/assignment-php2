@@ -147,5 +147,32 @@ class Quiz extends BaseModel
         return $this->execute([$quizId]);
     }
 
-    public function updateQuiz($quizId, $data) {}
+    public function updateQuiz($quizId, $data)
+    {
+        // update quiz title and description
+        $this->setQuery("UPDATE quizzes SET title = ?, description = ?, duration = ? WHERE id = ?");
+        $this->execute([$data['title'], $data['description'], $data['duration'], $quizId]);
+
+        // Delete existing questions and answers for the quiz
+        $this->setQuery("DELETE FROM questions WHERE quiz_id = ?");
+        $this->execute([$quizId]);
+
+        $this->setQuery("DELETE FROM answers WHERE question_id IN (SELECT id FROM questions WHERE quiz_id = ?)");
+        $this->execute([$quizId]);
+
+        // Insert new questions and answers
+        foreach ($data['questions'] as $questionIndex => $questionText) {
+            // Insert the question
+            $this->setQuery("INSERT INTO questions (quiz_id, question_text) VALUES (?, ?)");
+            $this->execute([$quizId, $questionText]);
+            $questionId = $this->getLastId();
+
+            // Insert the answers for the question
+            foreach ($data['answers'][$questionIndex] as $answerIndex => $answerText) {
+                $isCorrect = ($answerIndex == $data['correct_answer'][$questionIndex] ? 1 : 0);
+                $this->setQuery("INSERT INTO answers (question_id, answer_text, is_correct) VALUES (?, ?, ?)");
+                $this->execute([$questionId, $answerText, $isCorrect]);
+            }
+        }
+    }
 }

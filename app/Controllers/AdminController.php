@@ -7,6 +7,14 @@ use App\Models\User;
 
 class AdminController extends BaseController
 {
+    public function __construct()
+    {
+        if (!isset($_SESSION['user']) || $_SESSION['user']->role !== 'admin') {
+            header('Location: /');
+            exit();
+        }
+    }
+
     public function manageQuiz()
     {
         $quiz = new Quiz();
@@ -39,21 +47,40 @@ class AdminController extends BaseController
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $quiz = new Quiz();
-            $quiz->updateQuiz($quizId, [
-                'questions' => $_POST['questions'] ?? [],
-                'answers' => $_POST['answers'],
-                'correct_answer' => $_POST['correct_answer']
-            ]);
-            echo "<pre>";
-            var_dump([
-                'questions' => $_POST['questions'] ?? [],
-                'answers' => $_POST['answers'],
-                'correct_answer' => $_POST['correct_answer']
-            ]);
-            echo "</pre>";
-            exit();
-            header('Location: /manage/quizzes');
+            $questions = array_filter($_POST['questions'], function ($question) {
+                return !empty(trim($question));
+            });
+
+            $_POST['answers'] = array_map(function ($answers) {
+                return array_filter($answers, function ($answer) {
+                    return !empty(trim($answer));
+                });
+            }, $_POST['answers']);
+
+            $_POST['answers'] = array_filter($_POST['answers'], function ($answers) {
+                return !empty($answers);
+            });
+
+            if (!empty($questions)) {
+                $quiz = new Quiz();
+                $quiz->updateQuiz($quizId, [
+                    'questions' => $questions,
+                    'answers' => $_POST['answers'],
+                    'correct_answer' => $_POST['correct_answer'],
+                    'title' => $_POST['title'],
+                    'description' => $_POST['description'],
+                    'duration' => $_POST['duration']
+                ]);
+                // echo "<pre>";
+                // var_dump([
+                //     'questions' => $_POST['questions'] ?? [],
+                //     'answers' => $_POST['answers'],
+                //     'correct_answer' => $_POST['correct_answer']
+                // ]);
+                // echo "</pre>";
+                header('Location: /manage/quizzes');
+                exit();
+            }
         }
 
         return $this->render('pages.admin.editQuiz', compact('quiz'));

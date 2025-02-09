@@ -7,12 +7,16 @@ use App\Models\User;
 
 class HomeController extends BaseController
 {
-    public function home()
+    public function __construct()
     {
         if (!isset($_SESSION['user'])) {
-            header('Location: ./login');
+            header('Location: /login');
+            exit();
         }
+    }
 
+    public function home()
+    {
         if ($_SESSION['user']->role == 'admin') {
             $user = new User();
             $users = $user->getNumberOfUsers();
@@ -34,10 +38,29 @@ class HomeController extends BaseController
         ]);
     }
 
+    public function startQuiz($quizId)
+    {
+        $quiz = new Quiz();
+        $quizData = $quiz->getQuiz($quizId);
+        $duration = $quizData->duration; // Get quiz duration (in minutes) from DB
+
+        // Store quiz start time and duration in session
+        $_SESSION['quiz_start_time'] = time();
+        $_SESSION['quiz_duration'] = $duration * 60; // Convert minutes to seconds
+
+        header("Location: /quiz/$quizId/0"); // Redirect to first question
+        exit();
+    }
+
     public function storeQuizAnswer($quizId, $questionIndex)
     {
-        if (!isset($_SESSION['user'])) {
-            header('Location: /login');
+        // Check if time is up
+        $quizStartTime = $_SESSION['quiz_start_time'];
+        $quizDuration = $_SESSION['quiz_duration'];
+        $currentTime = time();
+
+        if ($currentTime > ($quizStartTime + $quizDuration)) {
+            header("Location: /quiz/$quizId/result"); // Redirect to results
             exit();
         }
 

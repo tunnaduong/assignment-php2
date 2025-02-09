@@ -26,6 +26,7 @@
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Quiz Name</th>
+                        <th scope="col">Duration</th>
                         <th scope="col">Number of Questions</th>
                         <th scope="col">Actions</th>
                     </tr>
@@ -35,6 +36,7 @@
                         <tr>
                             <td>{{ $quiz->id }}</td>
                             <td>{{ $quiz->title }}</td>
+                            <td>{{ $quiz->duration }} minute(s)</td>
                             <td>{{ $quiz->total_questions }}</td>
                             <td>
                                 <a href="{{ route('manage/quizzes/edit/' . $quiz->id) }}"

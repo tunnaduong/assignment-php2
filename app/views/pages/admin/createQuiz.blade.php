@@ -25,6 +25,11 @@
                     <label for="quizDesc" class="form-label">Quiz Description</label>
                     <textarea class="form-control" id="quizDesc" name="description" rows="5"></textarea>
                 </div>
+                <div class="mb-3">
+                    <label for="duration" class="form-label">Time Limit (minutes):</label>
+                    <input type="number" class="form-control" name="duration" id="duration" min="1" value="10"
+                        required>
+                </div>
                 <button type="submit" class="btn btn-success">Create Quiz</button>
                 <a href="/manage/quizzes" class="btn btn-secondary">Cancel</a>
             </form>

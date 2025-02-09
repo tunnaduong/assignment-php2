@@ -60,9 +60,9 @@
                             <h5 class="card-title">{{ $quiz->title }}</h5>
                             <p class="card-text">{{ $quiz->description }}</p>
                             @if ($quiz->user_attempted)
-                                <a href="/quiz/{{ $quiz->id }}/0" class="btn btn-warning">Retake</a>
+                                <a href="/quiz/{{ $quiz->id }}/start" class="btn btn-warning">Retake</a>
                             @else
-                                <a href="/quiz/{{ $quiz->id }}/0" class="btn btn-primary">Start</a>
+                                <a href="/quiz/{{ $quiz->id }}/start" class="btn btn-primary">Start</a>
                             @endif
                         </div>
                     </div>

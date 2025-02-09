@@ -15,6 +15,8 @@ try {
 
     $router->get('/logout', [App\Controllers\AuthController::class, 'logout']);
 
+    $router->get('/quiz/{quizId}/start', [App\Controllers\HomeController::class, 'startQuiz']);
+
     $router->any('/quiz/{quizId}/result', [App\Controllers\HomeController::class, 'showQuizResult']);
 
     $router->any('/quiz/{quizId}/{questionIndex}', [App\Controllers\HomeController::class, 'storeQuizAnswer']);
