@@ -146,4 +146,6 @@ class Quiz extends BaseModel
         $this->setQuery("DELETE FROM quizzes WHERE id = ?");
         return $this->execute([$quizId]);
     }
+
+    public function updateQuiz($quizId, $data) {}
 }

@@ -42,10 +42,17 @@ class AdminController extends BaseController
             $quiz = new Quiz();
             $quiz->updateQuiz($quizId, [
                 'questions' => $_POST['questions'] ?? [],
-                'question_text' => $_POST['question_text'],
                 'answers' => $_POST['answers'],
                 'correct_answer' => $_POST['correct_answer']
             ]);
+            echo "<pre>";
+            var_dump([
+                'questions' => $_POST['questions'] ?? [],
+                'answers' => $_POST['answers'],
+                'correct_answer' => $_POST['correct_answer']
+            ]);
+            echo "</pre>";
+            exit();
             header('Location: /manage/quizzes');
         }
 
