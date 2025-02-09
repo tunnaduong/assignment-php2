@@ -10,7 +10,7 @@ class AdminController extends BaseController
     public function __construct()
     {
         if (!isset($_SESSION['user']) || $_SESSION['user']->role !== 'admin') {
-            header('Location: /');
+            header('Location: ' . route(''));
             exit();
         }
     }
@@ -34,7 +34,7 @@ class AdminController extends BaseController
     {
         $quiz = new Quiz();
         $quiz->createQuiz($_POST);
-        header('Location: /manage/quizzes');
+        header('Location: ' . route('manage/quizzes'));
     }
 
     public function editQuiz($quizId)
@@ -78,7 +78,7 @@ class AdminController extends BaseController
                 //     'correct_answer' => $_POST['correct_answer']
                 // ]);
                 // echo "</pre>";
-                header('Location: /manage/quizzes');
+                header('Location: ' . route('manage/quizzes'));
                 exit();
             }
         }
@@ -90,7 +90,7 @@ class AdminController extends BaseController
     {
         $quiz = new Quiz();
         $quiz->deleteQuiz($quizId);
-        header('Location: /manage/quizzes');
+        header('Location: ' . route('manage/quizzes'));
     }
 
     public function manageUsers()
@@ -107,14 +107,14 @@ class AdminController extends BaseController
         }
         $user = new User();
         $user->register($_POST['full_name'], $_POST['email'], $_POST['password'], $_POST['role'] ?? "user");
-        header('Location: /manage/users');
+        header('Location: ' . route('manage/users'));
     }
 
     public function deleteUser($userId)
     {
         $user = new User();
         $user->deleteUser($userId);
-        header('Location: /manage/users');
+        header('Location: ' . route('manage/users'));
     }
 
     public function editUser($userId)
@@ -125,7 +125,7 @@ class AdminController extends BaseController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user = new User();
             $user->updateUser($userId, $_POST);
-            header('Location: /manage/users');
+            header('Location: ' . route('manage/users'));
         }
 
         return $this->render('pages.admin.editUser', compact('user'));

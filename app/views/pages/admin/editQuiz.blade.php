@@ -68,15 +68,14 @@
                 <div class="mb-3">
                     <div class="mb-3">
                         <h4 for="question_text" class="form-label">Question {{ count($quiz->questions) + 1 }}</h4>
-                        <input type="text" class="form-control" id="question_text" name="questions[]"
-                            {{ count($quiz->questions) == 0 ? 'required' : '' }}>
+                        <input type="text" class="form-control" id="question_text" name="questions[]">
                     </div>
 
                     <h4>Answers</h4>
                     <div id="answers-container-{{ count($quiz->questions) }}">
                         <div class="mb-3 d-flex align-items-center">
                             <input type="text" class="form-control me-2" name="answers[{{ count($quiz->questions) }}][]"
-                                placeholder="Answer 1" {{ count($quiz->questions) == 0 ? 'required' : '' }}>
+                                placeholder="Answer 1">
                             <input type="radio" name="correct_answer[{{ count($quiz->questions) }}]" value="0">
                             &nbsp;Correct&nbsp;&nbsp;
                             <button type="button" class="btn btn-danger btn-sm"

@@ -9,7 +9,7 @@ class AuthController extends BaseController
     public function __construct()
     {
         if (isset($_SESSION['user'])) {
-            header("Location: ./");
+            header("Location: " . route(''));
         }
     }
 
@@ -79,7 +79,7 @@ class AuthController extends BaseController
             $auth = $user->login($email, $password);
             if ($auth) {
                 $_SESSION['user'] = $auth;
-                header("Location: ./");
+                header("Location: " . route(''));
             } else {
                 $error = "Tên đăng nhập hoặc mật khẩu không chính xác!";
             }
@@ -100,6 +100,6 @@ class AuthController extends BaseController
         unset($_SESSION["user"]);
         session_unset();
         session_destroy();
-        header("Location: ./login");
+        header("Location: " . route('login'));
     }
 }

@@ -137,8 +137,8 @@ class Quiz extends BaseModel
 
     public function createQuiz($data)
     {
-        $this->setQuery("INSERT INTO quizzes (title, description) VALUES (?, ?)");
-        return $this->execute([$data['title'], $data['description']]);
+        $this->setQuery("INSERT INTO quizzes (title, description, duration) VALUES (?, ?, ?)");
+        return $this->execute([$data['title'], $data['description'], $data['duration']]);
     }
 
     public function deleteQuiz($quizId)

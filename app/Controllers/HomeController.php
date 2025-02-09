@@ -10,7 +10,7 @@ class HomeController extends BaseController
     public function __construct()
     {
         if (!isset($_SESSION['user'])) {
-            header('Location: /login');
+            header('Location: ' . route('login'));
             exit();
         }
     }
@@ -48,7 +48,7 @@ class HomeController extends BaseController
         $_SESSION['quiz_start_time'] = time();
         $_SESSION['quiz_duration'] = $duration * 60; // Convert minutes to seconds
 
-        header("Location: /quiz/$quizId/0"); // Redirect to first question
+        header("Location: " . route("quiz/$quizId/0")); // Redirect to first question
         exit();
     }
 
@@ -60,7 +60,7 @@ class HomeController extends BaseController
         $currentTime = time();
 
         if ($currentTime > ($quizStartTime + $quizDuration)) {
-            header("Location: /quiz/$quizId/result"); // Redirect to results
+            header("Location: " . route("quiz/$quizId/result")); // Redirect to results
             exit();
         }
 
@@ -78,12 +78,12 @@ class HomeController extends BaseController
 
             // If it's the last question, go to results page
             if ($questionIndex >= $totalQuestions) {
-                header('Location: /quiz/' . $quizId . '/result');
+                header('Location: ' . route('quiz/' . $quizId . '/result'));
                 exit();
             }
 
             // Otherwise, go to next question
-            header('Location: /quiz/' . $quizId . '/' . $questionIndex . '?' . http_build_query(['selected_answers' => $selectedAnswers]));
+            header('Location: ' . route('quiz/' . $quizId . '/' . $questionIndex . '?' . http_build_query(['selected_answers' => $selectedAnswers])));
             exit();
         }
 
